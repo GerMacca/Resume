@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Hero.css'
-import SocialOrbit from './SocialOrbit/SocialOrbit'
+import SocialOrbit from '../SocialOrbit/SocialOrbit'
 
 const words = ['soluções', 'projetos', 'websites', 'aplicações']
 

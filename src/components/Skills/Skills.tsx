@@ -1,8 +1,9 @@
 import './Skills.css'
 import {
   SiHtml5, SiCss, SiJavascript, SiTypescript,
-  SiReact, SiOpenjdk, SiGit, SiDelphi, SiPostgresql,
+  SiReact, SiGit, SiDelphi, SiPostgresql,
 } from 'react-icons/si'
+import { FaNodeJs } from "react-icons/fa";
 import { FaDatabase } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
 
@@ -24,7 +25,7 @@ const skills: Skill[] = [
     color: '#61dafb',
     area: 'react',
     category: 'Frontend',
-    since: 2023,
+    since: 2024,
     level: 4,
     desc: 'Framework principal para aplicações SPA. Usado no TrainerDex e neste portfólio, explorando hooks, componentes e gerenciamento de estado.',
   },
@@ -43,8 +44,8 @@ const skills: Skill[] = [
     name: 'TypeScript',
     color: '#3178c6',
     area: 'ts',
-    category: 'Frontend',
-    since: 2023,
+    category: 'FullStack',
+    since: 2025,
     level: 3,
     desc: 'Adotado em projetos mais recentes para maior segurança e organização. Este portfólio foi desenvolvido inteiramente com TypeScript.',
   },
@@ -54,7 +55,7 @@ const skills: Skill[] = [
     color: '#f7df1e',
     area: 'js',
     category: 'Frontend',
-    since: 2022,
+    since: 2023,
     level: 4,
     desc: 'Linguagem que uso no dia a dia para lógica de interações, manipulação do DOM e integração com APIs.',
   },
@@ -69,14 +70,14 @@ const skills: Skill[] = [
     desc: 'Responsável pelos estilos, animações e layouts. Explorei flexbox, grid e keyframes em projetos como o TrainerDex e este portfólio.',
   },
   {
-    icon: SiOpenjdk,
-    name: 'Java',
-    color: '#f89820',
-    area: 'java',
+    icon: FaNodeJs,
+    name: 'NodeJS',
+    color: '#248926',
+    area: 'NodeJs',
     category: 'Backend',
-    since: 2022,
-    level: 3,
-    desc: 'Aprendizado acadêmico sólido na UCS. Desenvolvi o MarketPlace em Java com foco em orientação a objetos.',
+    since: 2025,
+    level: 4,
+    desc: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
   },
   {
     icon: FaDatabase,
@@ -85,8 +86,8 @@ const skills: Skill[] = [
     area: 'fb',
     category: 'Database',
     since: 2023,
-    level: 3,
-    desc: 'Banco relacional utilizado com Delphi. Experiência com queries SQL, procedures e administração de dados.',
+    level: 5,
+    desc: 'Banco relacional utilizado com Delphi. Experiência com queries SQL, procedures, triggers, generators e administração de dados.',
   },
   {
     icon: SiGit,
@@ -104,8 +105,8 @@ const skills: Skill[] = [
     color: '#e62431',
     area: 'delphi',
     category: 'Desktop',
-    since: 2023,
-    level: 3,
+    since: 2024,
+    level: 5,
     desc: 'Desenvolvimento de aplicações desktop com foco em sistemas de gestão. Familiaridade com VCL, eventos e integração com bancos de dados.',
   },
   {
@@ -114,8 +115,8 @@ const skills: Skill[] = [
     color: '#336791',
     area: 'pg',
     category: 'Database',
-    since: 2024,
-    level: 3,
+    since: 2025,
+    level: 4,
     desc: 'SGBD robusto para projetos que exigem maior escala. Experiência com modelagem de dados, queries avançadas e integrações com aplicações.',
   },
 ]

@@ -28,30 +28,13 @@ export default function About() {
           </p>
         </div>
 
-        <div className="about-info">
-          <div className="info-item">
-            <span className="info-label">Nome</span>
-            <span className="info-value">Germano Maccagnan dos Santos</span>
-          </div>
-          <div className="info-item">
-            <span className="info-label">Email</span>
-            <a href="mailto:germaccagnan@gmail.com" className="info-value info-link">
-              germaccagnan@gmail.com
-            </a>
-          </div>
-          <div className="info-item">
-            <span className="info-label">WhatsApp</span>
-            <a href="https://wa.me/5554991630400" target="_blank" rel="noopener noreferrer" className="info-value info-link">
-              +55 54 9 9163-0400
-            </a>
-          </div>
-          <div className="info-item">
-            <span className="info-label">Localização</span>
-            <span className="info-value">Caxias do Sul, RS — Brasil</span>
-          </div>
-          <div className="info-item">
-            <span className="info-label">Disponibilidade</span>
-            <span className="info-value available">Disponível para projetos</span>
+        <div className="about-photo-wrapper">
+          <div className="about-photo-frame">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Foto de perfil"
+              className="about-photo"
+            />
           </div>
         </div>
       </div>

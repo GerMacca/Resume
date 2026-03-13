@@ -4,7 +4,20 @@
       "Bash(npm run:*)",
       "Bash(ls \"c:\\\\Users\\\\germa\\\\GermanoMaccagnanResume\\\\node_modules\\\\react-icons\\\\si\"\" | grep -i \"java)",
       "Bash(css3)",
-      "Bash(cssb \")"
+      "Bash(cssb \")",
+      "Bash(mkdir -p About Contact Hero Navbar Projects Skills)",
+      "Bash(mv About.tsx About/About.tsx)",
+      "Bash(mv About.css About/About.css)",
+      "Bash(mv Contact.tsx Contact/Contact.tsx)",
+      "Bash(mv Contact.css Contact/Contact.css)",
+      "Bash(mv Hero.tsx Hero/Hero.tsx)",
+      "Bash(mv Hero.css Hero/Hero.css)",
+      "Bash(mv Navbar.tsx Navbar/Navbar.tsx)",
+      "Bash(mv Navbar.css Navbar/Navbar.css)",
+      "Bash(mv Projects.tsx Projects/Projects.tsx)",
+      "Bash(mv Projects.css Projects/Projects.css)",
+      "Bash(mv Skills.tsx Skills/Skills.tsx)",
+      "Bash(mv Skills.css Skills/Skills.css)"
     ]
   }
 }
