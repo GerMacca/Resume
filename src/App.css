@@ -1,0 +1,30 @@
+.app {
+  min-height: 100vh;
+}
+
+/* Shared section layout */
+.section {
+  padding: 6rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 3.5rem;
+}
+
+.section-tag {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  margin-bottom: 0.6rem;
+  font-family: 'Courier New', monospace;
+}
+
+.section-header h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}

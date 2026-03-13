@@ -1,0 +1,232 @@
+.hero {
+  min-height: 95vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "left right"
+    "bottom bottom";
+  align-items: center;
+  padding: 0 5%;
+  padding-top: 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-glow {
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(0, 200, 150, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-left {
+  grid-area: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.hero-right {
+  grid-area: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInRight 0.9s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.hero-greeting {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+.hero-name {
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.hero-name span {
+  color: var(--accent);
+}
+
+.hero-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.hero-role::before {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.hero-desc {
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  max-width: 420px;
+}
+
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.4rem;
+  padding: 0.85rem 2rem;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border-radius: 8px;
+  width: fit-content;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.btn-download:hover {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 28px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Big animated bottom text */
+.hero-bottom {
+  grid-area: bottom;
+  padding: 2.5rem 0 2rem;
+  font-size: clamp(2.2rem, 5.5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -2px;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.hero-prefix {
+  color: var(--text-secondary);
+}
+
+.hero-typewriter {
+  color: var(--accent);
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  background: var(--accent);
+  margin-left: 2px;
+  border-radius: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute;
+  bottom: 2rem;
+  right: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "left"
+      "right"
+      "bottom";
+    text-align: center;
+    gap: 1.5rem;
+    padding-top: 100px;
+  }
+
+  .hero-role::before {
+    display: none;
+  }
+
+  .hero-role {
+    justify-content: center;
+  }
+
+  .hero-desc {
+    margin: 0 auto;
+  }
+
+  .btn-download {
+    margin: 0 auto;
+  }
+
+  .hero-bottom {
+    justify-content: center;
+  }
+
+  .hero-scroll {
+    display: none;
+  }
+}

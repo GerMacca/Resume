@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(ls \"c:\\\\Users\\\\germa\\\\GermanoMaccagnanResume\\\\node_modules\\\\react-icons\\\\si\"\" | grep -i \"java)",
+      "Bash(css3)",
+      "Bash(cssb \")"
+    ]
+  }
+}
