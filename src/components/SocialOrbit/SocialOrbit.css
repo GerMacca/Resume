@@ -47,15 +47,26 @@
   margin-left: calc(var(--orbit-size) / -2);
   background: rgb(var(--bg));
   border-radius: 50%;
-  box-shadow: 0 6px 16px rgba(0,0,0,.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .4);
   transition: var(--fast) var(--ease);
   animation: orbit var(--dur) linear infinite;
 }
 
-.social-orbit .orbit-item:nth-of-type(1) { animation-delay: calc(var(--dur) * 0); }
-.social-orbit .orbit-item:nth-of-type(2) { animation-delay: calc(var(--dur) * -0.25); }
-.social-orbit .orbit-item:nth-of-type(3) { animation-delay: calc(var(--dur) * -0.5); }
-.social-orbit .orbit-item:nth-of-type(4) { animation-delay: calc(var(--dur) * -0.75); }
+.social-orbit .orbit-item:nth-of-type(1) {
+  animation-delay: calc(var(--dur) * 0);
+}
+
+.social-orbit .orbit-item:nth-of-type(2) {
+  animation-delay: calc(var(--dur) * -0.25);
+}
+
+.social-orbit .orbit-item:nth-of-type(3) {
+  animation-delay: calc(var(--dur) * -0.5);
+}
+
+.social-orbit .orbit-item:nth-of-type(4) {
+  animation-delay: calc(var(--dur) * -0.75);
+}
 
 .orbit-item:hover {
   box-shadow: 0 8px 20px rgba(var(--bg), .6);
@@ -75,11 +86,10 @@
 .social-orbit::before {
   content: "";
   position: absolute;
-  inset: -6px;
   border-radius: 50%;
   background: conic-gradient(from 0deg, var(--color-primary), var(--color-secondary), var(--color-primary));
   -webkit-mask: radial-gradient(farthest-side, transparent 96%, #000 0);
-          mask: radial-gradient(farthest-side, transparent 96%, #000 0);
+  mask: radial-gradient(farthest-side, transparent 96%, #000 0);
   opacity: .5;
   animation: spin 20s linear infinite;
   will-change: transform;
@@ -91,10 +101,10 @@
   position: absolute;
   inset: -8px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  background: conic-gradient(from 0deg, transparent, var(--color-secondary), var(--color-primary));
   filter: blur(18px);
   opacity: .7;
-  animation: spin 20s linear infinite;
+  animation: spin 10s linear infinite;
   will-change: transform;
   pointer-events: none;
   z-index: -1;
@@ -106,18 +116,35 @@
 }
 
 @keyframes orbit {
-  from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+  from {
+    transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg);
+  }
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 1200px) {
@@ -132,13 +159,22 @@
     --orbit-pad: 0;
     padding: 60px;
   }
+
   .social-orbit {
     width: var(--me-size);
     height: var(--me-size);
   }
-  .social-orbit::after { filter: blur(10px); inset: -4px; }
+
+  .social-orbit::after {
+    filter: blur(10px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit-item, .social-orbit::before, .social-orbit::after { animation: none !important; }
+
+  .orbit-item,
+  .social-orbit::before,
+  .social-orbit::after {
+    animation: none !important;
+  }
 }

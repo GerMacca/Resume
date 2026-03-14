@@ -8,36 +8,25 @@ export default function Hero() {
   const [displayText, setDisplayText] = useState('')
   const [wordIndex, setWordIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
-  const [phase, setPhase] = useState<'typing' | 'pausing' | 'deleting'>('typing')
+  const [phase, setPhase] = useState<'typing' | 'deleting'>('typing')
 
   useEffect(() => {
     const word = words[wordIndex]
-
     if (phase === 'typing') {
       if (charIndex < word.length) {
-        const t = setTimeout(() => {
-          setDisplayText(word.slice(0, charIndex + 1))
-          setCharIndex(c => c + 1)
-        }, 110)
+        const t = setTimeout(() => { setDisplayText(word.slice(0, charIndex + 1)); setCharIndex(c => c + 1) }, 110)
         return () => clearTimeout(t)
       } else {
         const t = setTimeout(() => setPhase('deleting'), 1800)
         return () => clearTimeout(t)
       }
     }
-
     if (phase === 'deleting') {
       if (charIndex > 0) {
-        const t = setTimeout(() => {
-          setDisplayText(word.slice(0, charIndex - 1))
-          setCharIndex(c => c - 1)
-        }, 55)
+        const t = setTimeout(() => { setDisplayText(word.slice(0, charIndex - 1)); setCharIndex(c => c - 1) }, 55)
         return () => clearTimeout(t)
       } else {
-        const t = setTimeout(() => {
-          setPhase('typing')
-          setWordIndex(i => (i + 1) % words.length)
-        }, 300)
+        const t = setTimeout(() => { setPhase('typing'); setWordIndex(i => (i + 1) % words.length) }, 300)
         return () => clearTimeout(t)
       }
     }
@@ -52,7 +41,7 @@ export default function Hero() {
       </div>
 
       <div className="hero-right">
-        <p className="hero-greeting">Olá, eu sou</p>
+
         <h1 className="hero-name">
           Germano <span>Maccagnan</span>
         </h1>

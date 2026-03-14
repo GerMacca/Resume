@@ -51,7 +51,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 300px;
+  max-width: 420px;
   aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 18px;
@@ -86,5 +86,9 @@
   .about-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .about-photo-wrapper {
+    display: none;
   }
 }

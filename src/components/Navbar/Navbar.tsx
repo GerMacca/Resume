@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <a href="#home" className="navbar-logo">
-        GM<span>.</span>
+        GMS<span>.</span>
       </a>
 
       <nav className={`navbar-links ${open ? 'open' : ''}`}>

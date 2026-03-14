@@ -45,7 +45,6 @@
 
 .hero-greeting {
   font-size: 1rem;
-  color: var(--text-secondary);
   font-weight: 400;
 }
 
@@ -65,18 +64,8 @@
   align-items: center;
   gap: 0.75rem;
   font-size: 1rem;
-  color: var(--text-secondary);
+  color: var(--accent);
   font-weight: 500;
-}
-
-.hero-role::before {
-  content: '';
-  display: inline-block;
-  width: 30px;
-  height: 2px;
-  background: var(--accent);
-  border-radius: 2px;
-  flex-shrink: 0;
 }
 
 .hero-desc {
@@ -114,11 +103,13 @@
   grid-area: bottom;
   padding: 2.5rem 0 2rem;
   font-size: clamp(2.2rem, 5.5vw, 4.8rem);
+  font-family: 'JetBrains Mono', monospace;
   font-weight: 800;
   line-height: 1;
   letter-spacing: -2px;
   display: flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.25em;
   flex-wrap: wrap;
   z-index: 1;
@@ -204,18 +195,6 @@
     text-align: center;
     gap: 1.5rem;
     padding-top: 100px;
-  }
-
-  .hero-role::before {
-    display: none;
-  }
-
-  .hero-role {
-    justify-content: center;
-  }
-
-  .hero-desc {
-    margin: 0 auto;
   }
 
   .btn-download {

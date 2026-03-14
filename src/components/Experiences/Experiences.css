@@ -1,0 +1,199 @@
+/* Tabs */
+.exp-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+}
+
+.exp-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.6rem 1.1rem;
+    cursor: pointer;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.exp-tab:hover {
+    color: var(--text-primary);
+}
+
+.exp-tab--active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+.timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+}
+
+/* Item */
+.timeline-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+}
+
+.timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -2.375rem;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    border: 2px solid var(--bg-primary);
+}
+
+/* Card */
+.timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 1.75rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.timeline-card:hover {
+    border-color: rgba(0, 200, 150, 0.3);
+    box-shadow: 0 4px 24px rgba(0, 200, 150, 0.06);
+}
+
+/* Header */
+.timeline-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+
+.timeline-card-title h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.timeline-company {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* Meta */
+.timeline-card-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+}
+
+.timeline-period {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.timeline-location {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* Badge */
+.timeline-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid;
+}
+
+.timeline-badge--work {
+    color: #82aaff;
+    border-color: rgba(130, 170, 255, 0.3);
+    background: rgba(130, 170, 255, 0.07);
+}
+
+.timeline-badge--education {
+    color: var(--accent);
+    border-color: rgba(0, 200, 150, 0.3);
+    background: var(--accent-dim);
+}
+
+.timeline-badge--courses {
+    color: #f78c6c;
+    border-color: rgba(247, 140, 108, 0.3);
+    background: rgba(247, 140, 108, 0.07);
+}
+
+.timeline-badge--internship {
+    color: #c792ea;
+    border-color: rgba(199, 146, 234, 0.3);
+    background: rgba(199, 146, 234, 0.07);
+}
+
+/* Description */
+.timeline-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 1.1rem;
+}
+
+/* Tags */
+.timeline-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.timeline-tag {
+    font-size: 0.72rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.2rem 0.55rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .timeline-card-header {
+        flex-direction: column;
+    }
+
+    .timeline-card-meta {
+        align-items: flex-start;
+    }
+}

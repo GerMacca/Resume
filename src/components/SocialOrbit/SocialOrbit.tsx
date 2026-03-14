@@ -19,7 +19,7 @@ export default function SocialOrbit() {
                 </div>
 
                 <div className="orbit-item" style={{ '--bg': '0, 119, 181' } as CSSVar}>
-                    <a className="itemAncor" href="https://www.linkedin.com/in/germano-maccagnan-dos-santos-229b532a7/" target="_blank" rel="noopener noreferrer">
+                    <a className="itemAncor" href="https://www.linkedin.com/in/germano-maccagnan-dos-santos" target="_blank" rel="noopener noreferrer">
                         <RiLinkedinFill size={45} color="#fff" />
                     </a>
                 </div>
