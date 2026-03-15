@@ -17,7 +17,6 @@ const HEADERS = { Accept: 'application/vnd.github+json' }
 
 const JS_LANGS = new Set(['JavaScript', 'TypeScript'])
 
-// Maps package name → display label
 const PKG_MAP: Record<string, string> = {
   react: 'React',
   'react-dom': 'React',
@@ -85,7 +84,6 @@ export function useGithubRepos(username: string) {
             const langs: Record<string, number> = langsRes.ok ? await langsRes.json() : {}
             const baseLanguages = Object.keys(langs).filter(l => !['HTML', 'CSS', 'Shell'].includes(l))
 
-            // Merge: frameworks first, then remaining base languages
             const merged = [...frameworks]
             for (const l of baseLanguages) {
               if (!merged.includes(l)) merged.push(l)

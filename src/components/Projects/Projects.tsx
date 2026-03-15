@@ -5,8 +5,6 @@ import { useGithubRepos } from './useGithubRepos'
 
 const FEATURED = ['Lugia-Logs', 'HydroFarm', 'Kingdom-Rush-UCS']
 
-const featuredIndex = (name: string) => FEATURED.indexOf(name) + 1
-
 export default function Projects() {
   const { repos, loading, error } = useGithubRepos('GerMacca')
 
@@ -55,12 +53,6 @@ export default function Projects() {
                   </span>
                 )}
               </div>
-
-              {FEATURED.includes(repo.name) && (
-                <span className="project-featured-num">
-                  {String(featuredIndex(repo.name)).padStart(2, '0')}
-                </span>
-              )}
 
               <h3 className="project-title">{repo.name}</h3>
               <p className="project-desc">{repo.description ?? 'Sem descrição.'}</p>
