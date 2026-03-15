@@ -58,7 +58,7 @@
 .project-card.featured .project-title { grid-area: title; font-size: 1.35rem; }
 .project-card.featured .project-desc  { grid-area: desc; }
 .project-card.featured .project-tags  { grid-area: tags; align-self: end; }
-.project-card.featured .project-github-btn { grid-area: btn; align-self: end; margin-top: 0; }
+.project-card.featured .project-links { grid-area: btn; align-self: end; margin-top: 0; }
 
 .project-featured-num {
   grid-area: num;
@@ -149,7 +149,15 @@
   letter-spacing: 0.3px;
 }
 
-.project-github-btn {
+.project-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.project-github-btn,
+.project-site-btn {
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -165,10 +173,18 @@
   white-space: nowrap;
 }
 
-.project-github-btn:hover {
+.project-github-btn { margin-top: 0; }
+
+.project-github-btn:hover,
+.project-site-btn:hover {
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-dim);
+}
+
+.project-site-btn {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 /* ── Responsive ─────────────────────────────────────── */

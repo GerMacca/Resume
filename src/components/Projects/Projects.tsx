@@ -1,5 +1,5 @@
 import './Projects.css'
-import { TbBrandGithubFilled } from 'react-icons/tb'
+import { TbBrandGithubFilled, TbExternalLink } from 'react-icons/tb'
 import { AiOutlineStar } from 'react-icons/ai'
 import { useGithubRepos } from './useGithubRepos'
 
@@ -71,15 +71,28 @@ export default function Projects() {
                 ))}
               </div>
 
-              <a
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-github-btn"
-              >
-                <TbBrandGithubFilled size={16} />
-                Ver no GitHub
-              </a>
+              <div className="project-links">
+                <a
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-github-btn"
+                >
+                  <TbBrandGithubFilled size={16} />
+                  GitHub
+                </a>
+                {repo.homepage && (
+                  <a
+                    href={repo.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-site-btn"
+                  >
+                    <TbExternalLink size={16} />
+                    Ver site
+                  </a>
+                )}
+              </div>
             </div>
           ))}
         </div>
