@@ -33,7 +33,7 @@ const experiences: Experience[] = [
     location: 'Caxias do Sul, RS',
     description:
       'Curso com foco em algoritmos, estrutura de dados, engenharia de software, redes e desenvolvimento de sistemas.',
-    tags: ['Lógica', 'Boas práticas', 'Fundamentos', 'Banco de dados'],
+    tags: ['Lógica', 'Boas práticas', 'Fundamentos', 'Complexidade'],
     type: 'education',
   },
   // ── CURSOS ────────────────────────────────────────────────────────────────
@@ -43,7 +43,7 @@ const experiences: Experience[] = [
     role: 'Desenvolvedor Web FullStack',
     period: '2023',
     description:
-      'Descreva o conteúdo do curso e o que foi aprendido.',
+      'Aprendendo as bases da web: de páginas simples e estáticas, passando por estilos, animações e JavaScript, versionando e organizando tudo com Git.',
     tags: ['HTML', 'CSS', 'JavaScript', 'Git'],
     type: 'courses',
   },
@@ -53,7 +53,7 @@ const experiences: Experience[] = [
     role: 'Banco de Dados - UCS',
     period: 'Jun 2023',
     description:
-      'Evento intensivo de desenvolvimento de APIs REST com Node.js, Fastify e banco de dados relacional.',
+      'Evento focado nos fundamentos e no uso de um banco de dados.',
     tags: ['MySQL'],
     type: 'courses',
   },

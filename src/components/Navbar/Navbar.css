@@ -12,7 +12,7 @@
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 10, 0.92);
+  background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 1rem 5%;
@@ -60,6 +60,22 @@
 
 .navbar-links a:hover::after {
   width: 100%;
+}
+
+.navbar-theme {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  line-height: 1;
+}
+
+.navbar-theme:hover {
+  border-color: var(--accent);
+  background: var(--accent-dim);
 }
 
 .navbar-burger {

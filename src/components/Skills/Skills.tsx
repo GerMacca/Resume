@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Skills.css'
 import {
   SiHtml5, SiCss, SiJavascript, SiTypescript,
-  SiReact, SiGit, SiDelphi, SiPostgresql,
+  SiReact, SiGit, SiDelphi, SiPostgresql, SiPython
 } from 'react-icons/si'
 import { FaNodeJs } from "react-icons/fa";
 import { FaDatabase, FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa'
@@ -33,7 +33,7 @@ const skills: Skill[] = [
     area: 'react',
     category: 'Frontend',
     since: 2024,
-    desc: 'Framework principal para aplicações SPA. Usado no TrainerDex e neste portfólio, explorando hooks, componentes e gerenciamento de estado.',
+    desc: 'Utilizo React nos meus principais projetos web, aplicando conceitos como componentização, hooks e organização de estado para desenvolver interfaces dinâmicas e reutilizáveis. Tenho experiência na estruturação de componentes, separação de responsabilidades e construção de aplicações SPA, buscando manter o código organizado e fácil de manter. ',
     projects: [
       { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
       { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
@@ -46,7 +46,7 @@ const skills: Skill[] = [
     area: 'html',
     category: 'Frontend',
     since: 2022,
-    desc: 'Base de todos os meus projetos web. Estruturação semântica e acessível presente em cada trabalho que desenvolvi.',
+    desc: 'Presente em todos os meus projetos web. Experiência na construção de estruturas semânticas e bem organizadas para aplicações e páginas web.',
     projects: [
       { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
       { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
@@ -59,7 +59,7 @@ const skills: Skill[] = [
     area: 'ts',
     category: 'FullStack',
     since: 2025,
-    desc: 'Adotado em projetos mais recentes para maior segurança e organização. Este portfólio foi desenvolvido inteiramente com TypeScript.',
+    desc: 'Utilizado em projetos mais recentes para melhorar a organização e segurança do código. Venho aplicando TypeScript em aplicações web e neste portfólio, explorando tipagem estática e melhor estruturação do projeto.',
     projects: [
       { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
     ],
@@ -71,7 +71,7 @@ const skills: Skill[] = [
     area: 'js',
     category: 'Frontend',
     since: 2023,
-    desc: 'Linguagem que uso no dia a dia para lógica de interações, manipulação do DOM e integração com APIs.',
+    desc: 'Uso JavaScript para lógica das aplicações web, manipulação de dados e integração com APIs nos meus projetos.',
     projects: [
       { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
     ],
@@ -83,7 +83,7 @@ const skills: Skill[] = [
     area: 'css',
     category: 'Frontend',
     since: 2022,
-    desc: 'Responsável pelos estilos, animações e layouts. Explorei flexbox, grid e keyframes em projetos como o TrainerDex e este portfólio.',
+    desc: 'Experiência na criação de layouts responsivos, estilização de componentes e uso de animações para melhorar a experiência das interfaces.',
     projects: [
       { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
       { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
@@ -93,10 +93,10 @@ const skills: Skill[] = [
     icon: FaNodeJs,
     name: 'NodeJS',
     color: '#248926',
-    area: 'NodeJs',
+    area: 'nodejs',
     category: 'Backend',
     since: 2025,
-    desc: 'Desenvolvimento de APIs e servidores backend. Integração com bancos de dados e serviços externos.',
+    desc: 'Utilizado em estudos e projetos pessoais para desenvolvimento de APIs e integração com bancos de dados.',
     projects: [],
   },
   {
@@ -106,7 +106,7 @@ const skills: Skill[] = [
     area: 'fb',
     category: 'Database',
     since: 2023,
-    desc: 'Banco relacional utilizado com Delphi. Experiência com queries SQL, procedures, triggers, generators e administração de dados.',
+    desc: 'Banco de dados utilizado diariamente no ambiente de trabalho em conjunto com Delphi, trabalhando com queries SQL, procedures, triggers e manutenção de dados em sistemas ERP.',
     projects: [],
   },
   {
@@ -116,7 +116,7 @@ const skills: Skill[] = [
     area: 'git',
     category: 'Ferramentas',
     since: 2022,
-    desc: 'Controle de versão presente em todos os meus projetos. Uso o GitHub como repositório central para colaboração e histórico do código.',
+    desc: 'Utilizo Git no dia a dia para versionamento dos meus projetos e organização do histórico de desenvolvimento utilizando GitHub.',
     projects: [
       { name: 'GitHub', github: 'https://github.com/GermanoMaccagnan' },
     ],
@@ -128,7 +128,7 @@ const skills: Skill[] = [
     area: 'delphi',
     category: 'Desktop',
     since: 2024,
-    desc: 'Desenvolvimento de aplicações desktop com foco em sistemas de gestão. Familiaridade com VCL, eventos e integração com bancos de dados.',
+    desc: 'Utilizado diariamente no desenvolvimento e manutenção de aplicações desktop no ambiente profissional, principalmente em sistemas de gestão. Participo da criação de novas funcionalidades, manutenção de rotinas existentes, correção de problemas e integração com bancos de dados utilizados pelo sistema.',
     projects: [],
   },
   {
@@ -138,7 +138,17 @@ const skills: Skill[] = [
     area: 'pg',
     category: 'Database',
     since: 2025,
-    desc: 'SGBD robusto para projetos que exigem maior escala. Experiência com modelagem de dados, queries avançadas e integrações com aplicações.',
+    desc: 'Utilizado em projetos pessoais e também estudado durante a graduação, trabalhando com modelagem de dados e construção de queries SQL.',
+    projects: [],
+  },
+  {
+    icon: SiPython,
+    name: 'Python',
+    color: '#3776ab',
+    area: 'python',
+    category: 'Ferramentas',
+    since: 2024,
+    desc: 'Utilizo Python para automatizar tarefas no trabalho e também em projetos pessoais, principalmente scripts para manipulação de dados e automação de processos.',
     projects: [],
   },
 ]

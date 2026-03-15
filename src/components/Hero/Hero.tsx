@@ -47,8 +47,10 @@ export default function Hero() {
         </h1>
         <p className="hero-role">Desenvolvedor Web</p>
         <p className="hero-desc">
-          Apaixonado por tecnologia e por criar soluções digitais que fazem
-          a diferença. Sempre buscando aprender e evoluir no mundo do desenvolvimento.
+          Desenvolvedor de software com experiência no desenvolvimento de aplicações desktop,
+          atuando na criação e manutenção de sistemas. Atualmente estudo Ciência da Computação
+          e sigo aprofundando meus conhecimentos em desenvolvimento web, área na qual busco evoluir
+          construir novos projetos
         </p>
         <a href="/curriculo-germano.pdf" download className="btn-download">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">

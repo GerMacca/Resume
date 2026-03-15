@@ -197,6 +197,14 @@
     padding-top: 100px;
   }
 
+  .hero-right {
+    align-items: center;
+  }
+
+  .hero-desc {
+    margin: 0 auto;
+  }
+
   .btn-download {
     margin: 0 auto;
   }

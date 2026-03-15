@@ -68,9 +68,22 @@
   animation-delay: calc(var(--dur) * -0.75);
 }
 
+.orbit-item::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.social-orbit:has(.orbit-item:hover) .orbit-item {
+  animation-play-state: paused;
+}
+
 .orbit-item:hover {
   box-shadow: 0 8px 20px rgba(var(--bg), .6);
-  transform: scale(1.15) rotate(0deg) !important;
+  scale: 1.15;
+  cursor: pointer;
 }
 
 .itemAncor {
@@ -154,10 +167,27 @@
   }
 }
 
+@media (max-width: 900px) {
+  :root {
+    --me-size: 175px;
+    --orbit-radius: 148px;
+    --orbit-size: 54px;
+  }
+
+  .orbit-container {
+    padding: 45px;
+  }
+
+  .social-orbit {
+    width: calc(var(--me-size) + 35px);
+    height: calc(var(--me-size) + 35px);
+  }
+}
+
 @media (max-width: 600px) {
   .orbit-container {
     --orbit-pad: 0;
-    padding: 60px;
+    padding: 80px;
   }
 
   .social-orbit {

@@ -1,11 +1,12 @@
 import './Contact.css'
-import { RiLinkedinFill, RiMailSendLine } from 'react-icons/ri'
+import { RiLinkedinFill } from 'react-icons/ri'
 import { TbBrandGithubFilled } from 'react-icons/tb'
 import { FaWhatsapp } from 'react-icons/fa'
+import { MdEmail } from "react-icons/md";
 
 const contacts = [
   {
-    icon: RiMailSendLine,
+    icon: MdEmail,
     label: 'Email',
     value: 'germaccagnan@gmail.com',
     href: 'mailto:germaccagnan@gmail.com',
@@ -15,8 +16,8 @@ const contacts = [
   {
     icon: RiLinkedinFill,
     label: 'LinkedIn',
-    value: 'germano-maccagnan-dos-santos',
-    href: 'https://www.linkedin.com/in/germano-maccagnan-dos-santos-229b532a7/',
+    value: 'Germano Maccagnan dos Santos',
+    href: 'https://www.linkedin.com/in/germano-maccagnan-dos-santos/',
     color: '#0a66c2',
     bg: '10, 102, 194',
   },

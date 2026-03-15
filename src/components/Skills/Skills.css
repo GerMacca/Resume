@@ -56,10 +56,10 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, minmax(150px, auto));
   grid-template-areas:
-    "react  react  html   ts"
+    "react  react  html   css"
     "react  react  js     ts"
-    "css    java   fb     git"
-    "delphi delphi pg     git";
+    "nodejs pg     git    ts"
+    "delphi delphi fb     python";
   gap: 1rem;
 }
 
@@ -84,8 +84,12 @@
   grid-area: ts;
 }
 
-.bento-java {
-  grid-area: java;
+.bento-nodejs {
+  grid-area: nodejs;
+}
+
+.bento-python {
+  grid-area: python;
 }
 
 .bento-delphi {
@@ -256,8 +260,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ── Card expandido ── */
@@ -302,8 +311,15 @@
 }
 
 @keyframes cardPop {
-  from { transform: scale(0.88); opacity: 0; }
-  to   { transform: scale(1);    opacity: 1; }
+  from {
+    transform: scale(0.88);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .proj-watermark {
@@ -469,14 +485,12 @@
   justify-content: center;
 }
 
-/* ── TypeScript / Git (1×2) — tall cards ── */
-.bento-ts .bento-icon,
-.bento-git .bento-icon {
+/* ── TypeScript (1×2) — tall card ── */
+.bento-ts .bento-icon {
   font-size: 2.2rem;
 }
 
-.bento-ts .bento-watermark,
-.bento-git .bento-watermark {
+.bento-ts .bento-watermark {
   font-size: 9rem;
 }
 
@@ -532,97 +546,75 @@
 /* ══════════════════════════════
    Responsive
    ══════════════════════════════ */
-@media (max-width: 768px) {
+/* ── Tablet: 2 colunas ── */
+@media (max-width: 900px) {
   .skills-bento {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
       "react  react"
       "react  react"
-      "html   ts"
+      "html   css"
       "js     ts"
-      "css    java"
+      "nodejs ts"
+      "fb     git"
       "delphi delphi"
-      "fb     pg"
-      "git    git";
-  }
-
-  .bento-git {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas:
-      "meta  meta"
-      "icon  name"
-      "icon  desc"
-      "foot  foot";
-    column-gap: 1rem;
-    row-gap: 0.4rem;
-  }
-
-  .bento-git .bento-meta {
-    grid-area: meta;
-  }
-
-  .bento-git .bento-header {
-    display: contents;
-  }
-
-  .bento-git .bento-icon {
-    grid-area: icon;
-    font-size: 2.5rem;
-    align-self: start;
-  }
-
-  .bento-git .bento-name {
-    grid-area: name;
-    align-self: end;
-  }
-
-  .bento-git .bento-desc {
-    grid-area: desc;
-    -webkit-line-clamp: 2;
-  }
-
-  .bento-git .bento-footer {
-    grid-area: foot;
+      "pg     python";
   }
 }
 
+/* ── Mobile: 1 coluna ── */
 @media (max-width: 480px) {
   .skills-bento {
     grid-template-columns: 1fr;
     grid-template-areas:
-      "react" "html" "ts" "js"
-      "css" "java" "delphi" "fb" "pg" "git";
+      "react"
+      "html"
+      "css"
+      "js"
+      "ts"
+      "nodejs"
+      "fb"
+      "git"
+      "delphi"
+      "pg"
+      "python";
   }
 
-  .bento-react .bento-header {
-    flex-direction: row;
-    text-align: left;
-  }
-
+  /* React vira card normal horizontal */
   .bento-react {
     align-items: flex-start;
     text-align: left;
   }
 
+  .bento-react .bento-header {
+    flex-direction: row;
+  }
+
+  .bento-react .bento-icon {
+    font-size: 2rem;
+  }
+
+  .bento-react .bento-name {
+    font-size: 1rem;
+  }
+
   .bento-react .bento-desc {
     text-align: left;
+    max-width: none;
   }
 
   .bento-react .bento-footer {
     justify-content: flex-start;
   }
 
-  .bento-delphi,
-  .bento-git {
+  /* Delphi volta pra flex normal */
+  .bento-delphi {
     display: flex;
     flex-direction: column;
   }
 
-  .bento-delphi .bento-header,
-  .bento-git .bento-header {
+  .bento-delphi .bento-header {
     display: flex;
   }
 }
