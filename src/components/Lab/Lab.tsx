@@ -437,8 +437,17 @@ function SpringBall() {
 
   useEffect(() => {
     const el = boxRef.current!
-    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); handlePointer(e.touches[0].clientX, e.touches[0].clientY) }
-    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); handlePointer(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchMove = (e: TouchEvent) => {
+      if ((e.target as HTMLElement).closest('button')) return
+      e.preventDefault()
+      handlePointer(e.touches[0].clientX, e.touches[0].clientY)
+    }
+    const onTouchStart = (e: TouchEvent) => {
+      if ((e.target as HTMLElement).closest('button')) return
+      e.preventDefault()
+      startGame()
+      handlePointer(e.touches[0].clientX, e.touches[0].clientY)
+    }
     const onTouchEnd = () => { mouse.current = { x: -999, y: -999 } }
     el.addEventListener('touchmove', onTouchMove, { passive: false })
     el.addEventListener('touchstart', onTouchStart, { passive: false })
@@ -448,7 +457,7 @@ function SpringBall() {
       el.removeEventListener('touchstart', onTouchStart)
       el.removeEventListener('touchend', onTouchEnd)
     }
-  }, [handlePointer])
+  }, [handlePointer, startGame])
 
   return (
     <div
