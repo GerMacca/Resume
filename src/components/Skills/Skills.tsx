@@ -7,12 +7,7 @@ import {
 import { FaNodeJs } from "react-icons/fa";
 import { FaDatabase, FaGithub, FaExternalLinkAlt, FaTimes } from 'react-icons/fa'
 import type { IconType } from 'react-icons'
-
-type Project = {
-  name: string
-  github: string
-  site?: string
-}
+import { useGithubRepos, type GithubRepo } from '../Projects/useGithubRepos'
 
 type Skill = {
   icon: IconType
@@ -22,7 +17,24 @@ type Skill = {
   area: string
   category: string
   since: number
-  projects: Project[]
+  matchKeys: string[]
+}
+
+const GITHUB_USERNAME = 'GerMacca'
+
+function matchRepos(repos: GithubRepo[], matchKeys: string[]): GithubRepo[] {
+  if (matchKeys.includes('*')) return repos
+  if (matchKeys.length === 0) return []
+  return repos.filter(repo =>
+    matchKeys.some(key => {
+      const k = key.toLowerCase()
+      return (
+        repo.language?.toLowerCase() === k ||
+        repo.allLanguages.some(l => l.toLowerCase() === k) ||
+        repo.topics.some(t => t.toLowerCase() === k)
+      )
+    })
+  )
 }
 
 const skills: Skill[] = [
@@ -34,10 +46,7 @@ const skills: Skill[] = [
     category: 'Frontend',
     since: 2024,
     desc: 'Utilizo React nos meus principais projetos web, aplicando conceitos como componentização, hooks e organização de estado para desenvolver interfaces dinâmicas e reutilizáveis. Tenho experiência na estruturação de componentes, separação de responsabilidades e construção de aplicações SPA, buscando manter o código organizado e fácil de manter. ',
-    projects: [
-      { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
-      { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
-    ],
+    matchKeys: ['React'],
   },
   {
     icon: SiHtml5,
@@ -47,10 +56,7 @@ const skills: Skill[] = [
     category: 'Frontend',
     since: 2022,
     desc: 'Presente em todos os meus projetos web. Experiência na construção de estruturas semânticas e bem organizadas para aplicações e páginas web.',
-    projects: [
-      { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
-      { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
-    ],
+    matchKeys: ['HTML'],
   },
   {
     icon: SiTypescript,
@@ -60,9 +66,7 @@ const skills: Skill[] = [
     category: 'FullStack',
     since: 2025,
     desc: 'Utilizado em projetos mais recentes para melhorar a organização e segurança do código. Venho aplicando TypeScript em aplicações web e neste portfólio, explorando tipagem estática e melhor estruturação do projeto.',
-    projects: [
-      { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
-    ],
+    matchKeys: ['TypeScript'],
   },
   {
     icon: SiJavascript,
@@ -72,22 +76,17 @@ const skills: Skill[] = [
     category: 'Frontend',
     since: 2023,
     desc: 'Uso JavaScript para lógica das aplicações web, manipulação de dados e integração com APIs nos meus projetos.',
-    projects: [
-      { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
-    ],
+    matchKeys: ['JavaScript'],
   },
   {
     icon: SiCss,
     name: 'CSS3',
-    color: '#1572b6',
+    color: 'rebeccapurple',
     area: 'css',
     category: 'Frontend',
     since: 2022,
     desc: 'Experiência na criação de layouts responsivos, estilização de componentes e uso de animações para melhorar a experiência das interfaces.',
-    projects: [
-      { name: 'TrainerDex', github: 'https://github.com/GermanoMaccagnan/TrainerDex' },
-      { name: 'Portfólio', github: 'https://github.com/GermanoMaccagnan/GermanoMaccagnanResume' },
-    ],
+    matchKeys: ['CSS'],
   },
   {
     icon: FaNodeJs,
@@ -97,7 +96,7 @@ const skills: Skill[] = [
     category: 'Backend',
     since: 2025,
     desc: 'Utilizado em estudos e projetos pessoais para desenvolvimento de APIs e integração com bancos de dados.',
-    projects: [],
+    matchKeys: ['Express', 'Fastify'],
   },
   {
     icon: FaDatabase,
@@ -107,7 +106,7 @@ const skills: Skill[] = [
     category: 'Database',
     since: 2023,
     desc: 'Banco de dados utilizado diariamente no ambiente de trabalho em conjunto com Delphi, trabalhando com queries SQL, procedures, triggers e manutenção de dados em sistemas ERP.',
-    projects: [],
+    matchKeys: ['firebird'],
   },
   {
     icon: SiGit,
@@ -117,9 +116,7 @@ const skills: Skill[] = [
     category: 'Ferramentas',
     since: 2022,
     desc: 'Utilizo Git no dia a dia para versionamento dos meus projetos e organização do histórico de desenvolvimento utilizando GitHub.',
-    projects: [
-      { name: 'GitHub', github: 'https://github.com/GermanoMaccagnan' },
-    ],
+    matchKeys: ['*'],
   },
   {
     icon: SiDelphi,
@@ -129,7 +126,7 @@ const skills: Skill[] = [
     category: 'Desktop',
     since: 2024,
     desc: 'Utilizado diariamente no desenvolvimento e manutenção de aplicações desktop no ambiente profissional, principalmente em sistemas de gestão. Participo da criação de novas funcionalidades, manutenção de rotinas existentes, correção de problemas e integração com bancos de dados utilizados pelo sistema.',
-    projects: [],
+    matchKeys: ['Delphi'],
   },
   {
     icon: SiPostgresql,
@@ -139,7 +136,7 @@ const skills: Skill[] = [
     category: 'Database',
     since: 2025,
     desc: 'Utilizado em projetos pessoais e também estudado durante a graduação, trabalhando com modelagem de dados e construção de queries SQL.',
-    projects: [],
+    matchKeys: ['PostgreSQL', 'Prisma', 'Mongoose'],
   },
   {
     icon: SiPython,
@@ -149,18 +146,19 @@ const skills: Skill[] = [
     category: 'Ferramentas',
     since: 2024,
     desc: 'Utilizo Python para automatizar tarefas no trabalho e também em projetos pessoais, principalmente scripts para manipulação de dados e automação de processos.',
-    projects: [],
+    matchKeys: ['Python'],
   },
 ]
 
-function ExpandedCard({ skill, onClose }: { skill: Skill; onClose: () => void }) {
+function ExpandedCard({ skill, repos, onClose }: { skill: Skill; repos: GithubRepo[]; onClose: () => void }) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [onClose])
 
-  const { icon: Icon, name, color, desc, category, since, projects } = skill
+  const { icon: Icon, name, color, desc, category, since, matchKeys } = skill
+  const projects = matchRepos(repos, matchKeys)
 
   return (
     <div className="proj-backdrop" onClick={onClose}>
@@ -201,14 +199,14 @@ function ExpandedCard({ skill, onClose }: { skill: Skill; onClose: () => void })
         ) : (
           <ul className="proj-list">
             {projects.map(p => (
-              <li key={p.name} className="proj-item">
+              <li key={p.id} className="proj-item">
                 <span className="proj-name">{p.name}</span>
                 <div className="proj-links">
-                  <a href={p.github} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--gh">
+                  <a href={p.html_url} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--gh">
                     <FaGithub /> <span>GitHub</span>
                   </a>
-                  {p.site && (
-                    <a href={p.site} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--site">
+                  {p.homepage && (
+                    <a href={p.homepage} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--site">
                       <FaExternalLinkAlt /> <span>Site</span>
                     </a>
                   )}
@@ -224,24 +222,13 @@ function ExpandedCard({ skill, onClose }: { skill: Skill; onClose: () => void })
 
 export default function Skills() {
   const [selected, setSelected] = useState<Skill | null>(null)
+  const { repos } = useGithubRepos(GITHUB_USERNAME)
 
   return (
     <section id="skills" className="skills section">
       <div className="section-header">
         <span className="section-tag">// habilidades</span>
         <h2>Stack tecnológica</h2>
-      </div>
-
-      {/* Marquee */}
-      <div className="marquee-wrapper">
-        <div className="marquee-track">
-          {[...skills, ...skills].map(({ icon: Icon, name, color }, i) => (
-            <div key={`${name}-${i}`} className="marquee-item">
-              <span className="a" style={{ color, display: 'flex', alignItems: 'center' }}><Icon size={36} /></span>
-              <span className="marquee-label">{name}</span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Bento Grid */}
@@ -273,7 +260,7 @@ export default function Skills() {
         })}
       </div>
 
-      {selected && <ExpandedCard skill={selected} onClose={() => setSelected(null)} />}
+      {selected && <ExpandedCard skill={selected} repos={repos} onClose={() => setSelected(null)} />}
     </section>
   )
 }

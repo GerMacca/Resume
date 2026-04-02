@@ -11,6 +11,8 @@ export interface GithubRepo {
   stargazers_count: number
   fork: boolean
   languages: string[]
+  allLanguages: string[]
+  og_image_url: string
 }
 
 const HEADERS = { Accept: 'application/vnd.github+json' }
@@ -83,13 +85,24 @@ export function useGithubRepos(username: string) {
 
             const langs: Record<string, number> = langsRes.ok ? await langsRes.json() : {}
             const baseLanguages = Object.keys(langs).filter(l => !['HTML', 'CSS', 'Shell'].includes(l))
+            const allBaseLanguages = Object.keys(langs).filter(l => l !== 'Shell')
 
             const merged = [...frameworks]
             for (const l of baseLanguages) {
               if (!merged.includes(l)) merged.push(l)
             }
 
-            return { ...repo, languages: merged }
+            const mergedAll = [...frameworks]
+            for (const l of allBaseLanguages) {
+              if (!mergedAll.includes(l)) mergedAll.push(l)
+            }
+
+            return {
+              ...repo,
+              languages: merged,
+              allLanguages: mergedAll,
+              og_image_url: `https://opengraph.githubassets.com/1/${username}/${repo.name}`,
+            }
           })
         )
 
