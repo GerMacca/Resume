@@ -6,8 +6,8 @@ import rightNina from '../../assets/right_Nina.png'
 
 const PANGRAM = 'Três pratos de trigo para três tigres tristes comendo trigo!'
 const CHAR_COLORS = [
-  '#ff6b6b', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#cc5de8',
-  '#f783ac', '#a9e34b', '#74c0fc', '#e599f7', '#63e6be', '#ff8787',
+  '#46c284', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#cc5de8',
+  '#f783ac', '#a9e34b', '#74c0fc', '#e599f7', '#63e6be', '#3e138f',
   '#ffc078', '#ffe066', '#8ce99a', '#da77f2', '#f9a8d4', '#66d9e8',
 ]
 
@@ -93,10 +93,10 @@ function CursorTrail({ onClear }: { onClear: (fn: () => void) => void }) {
     onClear(() => setParticles(prev => prev.filter(p => !p.permanent)))
   }, [onClear])
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const addParticle = useCallback((clientX: number, clientY: number) => {
     const rect = boxRef.current!.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const x = clientX - rect.left
+    const y = clientY - rect.top
     const id = counterRef.current++
     const color = COLORS[Math.floor(Math.random() * COLORS.length)]
     const permanent = mouseDownRef.current
@@ -113,11 +113,26 @@ function CursorTrail({ onClear }: { onClear: (fn: () => void) => void }) {
     }
   }, [])
 
+  useEffect(() => {
+    const el = boxRef.current!
+    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); mouseDownRef.current = true; addParticle(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); addParticle(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchEnd = () => { mouseDownRef.current = false }
+    el.addEventListener('touchstart', onTouchStart, { passive: false })
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
+    el.addEventListener('touchend', onTouchEnd)
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchmove', onTouchMove)
+      el.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [addParticle])
+
   return (
     <div
       className="trail-box"
       ref={boxRef}
-      onMouseMove={handleMouseMove}
+      onMouseMove={e => addParticle(e.clientX, e.clientY)}
       onMouseDown={() => { mouseDownRef.current = true }}
       onMouseUp={() => { mouseDownRef.current = false }}
       onMouseLeave={() => { mouseDownRef.current = false }}
@@ -195,20 +210,19 @@ function ScratchCard() {
     return () => ro.disconnect()
   }, [])
 
-  const scratch = (e: React.MouseEvent) => {
+  const scratchAt = useCallback((clientX: number, clientY: number) => {
     if (!isDrawingRef.current || doneRef.current) return
     const canvas = canvasRef.current!
     const ctx = canvas.getContext('2d')!
     const rect = canvas.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const x = clientX - rect.left
+    const y = clientY - rect.top
 
     ctx.globalCompositeOperation = 'destination-out'
     ctx.beginPath()
     ctx.arc(x, y, 16, 0, Math.PI * 2)
     ctx.fill()
 
-    // Spawn shaving particles
     const colors = ['#c8922a', '#e8c060', '#d4963c', '#f0d080', '#b87e28']
     const newShavings: Shaving[] = Array.from({ length: 4 }, () => ({
       id: shavingCounterRef.current++,
@@ -231,7 +245,22 @@ function ScratchCard() {
     const revealed = Math.round(transparent / (data.length / 16) * 100)
     setPct(revealed)
     if (revealed >= 80) { doneRef.current = true; setDone(true) }
-  }
+  }, [])
+
+  useEffect(() => {
+    const el = canvasRef.current!
+    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); isDrawingRef.current = true; scratchAt(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); scratchAt(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchEnd = () => { isDrawingRef.current = false }
+    el.addEventListener('touchstart', onTouchStart, { passive: false })
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
+    el.addEventListener('touchend', onTouchEnd)
+    return () => {
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchmove', onTouchMove)
+      el.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [scratchAt])
 
   const reset = () => {
     doneRef.current = false
@@ -255,7 +284,7 @@ function ScratchCard() {
           onMouseDown={() => { isDrawingRef.current = true }}
           onMouseUp={() => { isDrawingRef.current = false }}
           onMouseLeave={() => { isDrawingRef.current = false }}
-          onMouseMove={scratch}
+          onMouseMove={e => scratchAt(e.clientX, e.clientY)}
         />
         {shavings.map(s => (
           <span
@@ -394,28 +423,44 @@ function SpringBall() {
     if (timerRafRef.current) cancelAnimationFrame(timerRafRef.current)
   }, [])
 
+  const handlePointer = useCallback((clientX: number, clientY: number) => {
+    const rect = boxRef.current!.getBoundingClientRect()
+    const mx = clientX - rect.left
+    const my = clientY - rect.top
+    mouse.current = { x: mx, y: my }
+    if (!startedRef.current) {
+      const dx = mx - pos.current.x
+      const dy = my - pos.current.y
+      if (Math.sqrt(dx * dx + dy * dy) < BALL_R + 20) startGame()
+    }
+  }, [startGame])
+
+  useEffect(() => {
+    const el = boxRef.current!
+    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); handlePointer(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); handlePointer(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchEnd = () => { mouse.current = { x: -999, y: -999 } }
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
+    el.addEventListener('touchstart', onTouchStart, { passive: false })
+    el.addEventListener('touchend', onTouchEnd)
+    return () => {
+      el.removeEventListener('touchmove', onTouchMove)
+      el.removeEventListener('touchstart', onTouchStart)
+      el.removeEventListener('touchend', onTouchEnd)
+    }
+  }, [handlePointer])
+
   return (
     <div
       className="spring-box"
       ref={boxRef}
-      onMouseMove={e => {
-        const rect = boxRef.current!.getBoundingClientRect()
-        const mx = e.clientX - rect.left
-        const my = e.clientY - rect.top
-        mouse.current = { x: mx, y: my }
-
-        if (!startedRef.current) {
-          const dx = mx - pos.current.x
-          const dy = my - pos.current.y
-          if (Math.sqrt(dx * dx + dy * dy) < BALL_R + 6) startGame()
-        }
-      }}
+      onMouseMove={e => handlePointer(e.clientX, e.clientY)}
       onMouseLeave={() => { mouse.current = { x: -999, y: -999 } }}
     >
       <span className="trail-hint" ref={hintRef} style={{ display: 'none' }} />
       <div className="spring-ball" ref={ballRef} />
       <div className="spring-dead" ref={deadScreenRef} style={{ display: 'none' }}>
-        <span>GAME OVER 💀</span>
+        <span>GAME OVER</span>
         <button className="spring-reset" onClick={reset}>reiniciar</button>
       </div>
       <span className="spring-timer" ref={timerRef}>0.00s</span>
@@ -477,10 +522,10 @@ function Bubbles() {
 
   bubblesRef.current = bubbles
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const checkPop = useCallback((clientX: number, clientY: number) => {
     const rect = boxRef.current!.getBoundingClientRect()
-    const mx = e.clientX - rect.left
-    const my = e.clientY - rect.top
+    const mx = clientX - rect.left
+    const my = clientY - rect.top
     const w = rect.width
     const h = rect.height
     bubblesRef.current.forEach(b => {
@@ -489,13 +534,25 @@ function Bubbles() {
       const by = b.y / 100 * h
       if (Math.sqrt((mx - bx) ** 2 + (my - by) ** 2) < b.r) pop(b.id)
     })
-  }
+  }, [])
+
+  useEffect(() => {
+    const el = boxRef.current!
+    const onTouchMove = (e: TouchEvent) => { e.preventDefault(); checkPop(e.touches[0].clientX, e.touches[0].clientY) }
+    const onTouchStart = (e: TouchEvent) => { e.preventDefault(); checkPop(e.touches[0].clientX, e.touches[0].clientY) }
+    el.addEventListener('touchmove', onTouchMove, { passive: false })
+    el.addEventListener('touchstart', onTouchStart, { passive: false })
+    return () => {
+      el.removeEventListener('touchmove', onTouchMove)
+      el.removeEventListener('touchstart', onTouchStart)
+    }
+  }, [checkPop])
 
   return (
     <div
       className="bubbles-box"
       ref={boxRef}
-      onMouseMove={handleMouseMove}
+      onMouseMove={e => checkPop(e.clientX, e.clientY)}
     >
       <svg width="100%" height="100%">
         {bubbles.map(b => {

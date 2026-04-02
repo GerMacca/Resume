@@ -205,6 +205,7 @@
 }
 
 .scratch-canvas {
+  touch-action: none;
   position: absolute;
   inset: 0;
   border-radius: 12px;
@@ -234,6 +235,7 @@
   overflow: hidden;
   background: color-mix(in srgb, var(--bg-card) 60%, var(--border));
   cursor: crosshair;
+  touch-action: none;
 }
 
 /* ── Cursor trail ────────────────────────────────────── */
@@ -247,6 +249,7 @@
   overflow: hidden;
   cursor: pointer;
   background: color-mix(in srgb, var(--bg-card) 60%, var(--border));
+  touch-action: none;
 }
 
 .trail-hint {
@@ -288,6 +291,7 @@
   border: 1px solid var(--border);
   overflow: hidden;
   cursor: default;
+  touch-action: none;
   background: color-mix(in srgb, var(--bg-card) 60%, var(--border));
 }
 

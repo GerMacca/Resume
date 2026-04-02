@@ -15,7 +15,11 @@ export interface GithubRepo {
   og_image_url: string
 }
 
-const HEADERS = { Accept: 'application/vnd.github+json' }
+const TOKEN = import.meta.env.VITE_GITHUB_TOKEN
+const HEADERS: HeadersInit = {
+  Accept: 'application/vnd.github+json',
+  ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
+}
 
 const JS_LANGS = new Set(['JavaScript', 'TypeScript'])
 
