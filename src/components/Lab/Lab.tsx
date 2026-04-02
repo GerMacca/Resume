@@ -617,12 +617,12 @@ export default function Lab() {
 
       <div className="lab-grid">
         <div className="lab-card lab-nina">
-          <span className="lab-card-label">Nina reage</span>
+          <span className="lab-card-label">Desafio de digitação da Nina</span>
           <NinaInput />
         </div>
         <div className="lab-card lab-trail">
           <div className="lab-card-header">
-            <span className="lab-card-label">Cursor trail</span>
+            <span className="lab-card-label">Painel de Desenho</span>
             <button className="lab-clear-btn" onClick={() => clearTrailRef.current?.()}>Limpar</button>
           </div>
           <p className="lab-card-hint">Clique para pintar</p>
@@ -634,7 +634,7 @@ export default function Lab() {
           <ScratchCard />
         </div>
         <div className="lab-card lab-ball">
-          <span className="lab-card-label">Bolinha</span>
+          <span className="lab-card-label">Jogo da Bolinha</span>
           <p className="lab-card-hint">Passe o mouse na bolinha para iniciar</p>
           <SpringBall />
         </div>
