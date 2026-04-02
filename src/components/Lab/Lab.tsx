@@ -310,8 +310,8 @@ function ScratchCard() {
 
 const BALL_R = 14
 const GRAVITY = 0.015
-const REPEL_RADIUS = BALL_R + 10
-const REPEL_FORCE = 0.8
+const REPEL_RADIUS = 60
+const REPEL_FORCE = 1.4
 
 function SpringBall() {
   const boxRef = useRef<HTMLDivElement>(null)

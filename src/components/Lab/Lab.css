@@ -194,9 +194,9 @@
 .scratch-canvas {
   touch-action: none;
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
   cursor: crosshair;
   transition: opacity 0.5s ease;
 }
