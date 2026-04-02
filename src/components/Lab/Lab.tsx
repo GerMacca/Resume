@@ -310,8 +310,10 @@ function ScratchCard() {
 
 const BALL_R = 14
 const GRAVITY = 0.015
-const REPEL_RADIUS = 60
-const REPEL_FORCE = 1.4
+const MOUSE_REPEL_RADIUS = 24
+const MOUSE_REPEL_FORCE = 0.8
+const TOUCH_REPEL_RADIUS = 60
+const TOUCH_REPEL_FORCE = 1.4
 
 function SpringBall() {
   const boxRef = useRef<HTMLDivElement>(null)
@@ -324,6 +326,7 @@ function SpringBall() {
   const rafRef = useRef<number | null>(null)
   const startedRef = useRef(false)
   const deadRef = useRef(false)
+  const isTouchRef = useRef(false)
   const timerRef = useRef<HTMLSpanElement>(null)
   const startTimeRef = useRef<number>(0)
   const timerRafRef = useRef<number | null>(null)
@@ -336,11 +339,13 @@ function SpringBall() {
 
       vel.current.y += GRAVITY
 
+      const repelRadius = isTouchRef.current ? TOUCH_REPEL_RADIUS : MOUSE_REPEL_RADIUS
+      const repelForce = isTouchRef.current ? TOUCH_REPEL_FORCE : MOUSE_REPEL_FORCE
       const dx = pos.current.x - mouse.current.x
       const dy = pos.current.y - mouse.current.y
       const dist = Math.sqrt(dx * dx + dy * dy)
-      if (dist < REPEL_RADIUS && dist > 0) {
-        const force = (REPEL_RADIUS - dist) / REPEL_RADIUS * REPEL_FORCE
+      if (dist < repelRadius && dist > 0) {
+        const force = (repelRadius - dist) / repelRadius * repelForce
         vel.current.x += (dx / dist) * force
         vel.current.y += (dy / dist) * force
       }
@@ -413,6 +418,7 @@ function SpringBall() {
     mouse.current = { x: -999, y: -999 }
     deadRef.current = false
     startedRef.current = false
+    isTouchRef.current = false
     if (ballRef.current) {
       ballRef.current.style.display = 'block'
       ballRef.current.classList.remove('started')
@@ -441,11 +447,13 @@ function SpringBall() {
     const onTouchMove = (e: TouchEvent) => {
       if ((e.target as HTMLElement).closest('button')) return
       e.preventDefault()
+      isTouchRef.current = true
       handlePointer(e.touches[0].clientX, e.touches[0].clientY)
     }
     const onTouchStart = (e: TouchEvent) => {
       if ((e.target as HTMLElement).closest('button')) return
       e.preventDefault()
+      isTouchRef.current = true
       startGame()
       handlePointer(e.touches[0].clientX, e.touches[0].clientY)
     }
