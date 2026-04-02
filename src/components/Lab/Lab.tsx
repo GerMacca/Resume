@@ -243,8 +243,8 @@ function ScratchCard() {
       if (data[i] < 128) transparent++
     }
     const revealed = Math.round(transparent / (data.length / 16) * 100)
-    setPct(revealed)
-    if (revealed >= 80) { doneRef.current = true; setDone(true) }
+    if (revealed >= 80) { doneRef.current = true; setDone(true); setPct(100) }
+    else setPct(revealed)
   }, [])
 
   useEffect(() => {
@@ -273,10 +273,11 @@ function ScratchCard() {
   return (
     <div className="scratch-container">
       <button className="lab-clear-btn" onClick={reset}>Reiniciar</button>
-      <div className="scratch-wrap" ref={wrapRef}>
-        <div className="scratch-hidden">
-          <img src={noneNina} alt="Nina" className="scratch-nina" />
-        </div>
+      <div
+        className="scratch-wrap"
+        ref={wrapRef}
+        style={{ backgroundImage: `url(${noneNina})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
         <canvas
           ref={canvasRef}
           className="scratch-canvas"
