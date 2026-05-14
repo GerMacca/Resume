@@ -17,6 +17,6 @@ export default async function handler(req, res) {
 
   const data = await response.text()
   res.setHeader('Content-Type', 'application/json')
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400')
+  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600')
   res.status(response.status).end(data)
 }
