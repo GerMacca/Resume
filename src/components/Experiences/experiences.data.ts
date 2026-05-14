@@ -27,7 +27,7 @@ const experiences: Experience[] = [
   // ── GRADUAÇÃO ─────────────────────────────────────────────────────────────
   {
     tab: 'education',
-    company: 'UCS — Universidade de Caxias do Sul',
+    company: 'UCS - Universidade de Caxias do Sul',
     role: 'Bacharelado em Ciência da Computação',
     period: '2023 - 2028 (apróx)',
     location: 'Caxias do Sul, RS',

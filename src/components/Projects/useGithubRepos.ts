@@ -15,11 +15,8 @@ export interface GithubRepo {
   og_image_url: string
 }
 
-const TOKEN = import.meta.env.VITE_GITHUB_TOKEN
-const HEADERS: HeadersInit = {
-  Accept: 'application/vnd.github+json',
-  ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
-}
+const githubFetch = (path: string) =>
+  fetch(`/api/github?path=${encodeURIComponent(path)}`)
 
 const JS_LANGS = new Set(['JavaScript', 'TypeScript'])
 
@@ -46,10 +43,7 @@ const PKG_MAP: Record<string, string> = {
 }
 
 async function getFrameworks(username: string, repoName: string): Promise<string[]> {
-  const res = await fetch(
-    `https://api.github.com/repos/${username}/${repoName}/contents/package.json`,
-    { headers: HEADERS }
-  )
+  const res = await githubFetch(`/repos/${username}/${repoName}/contents/package.json`)
   if (!res.ok) return []
 
   const { content } = await res.json()
@@ -70,9 +64,7 @@ export function useGithubRepos(username: string) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, {
-      headers: HEADERS,
-    })
+    githubFetch(`/users/${username}/repos?per_page=100&sort=updated`)
       .then(res => {
         if (!res.ok) throw new Error(`GitHub API: ${res.status}`)
         return res.json()
@@ -83,7 +75,7 @@ export function useGithubRepos(username: string) {
         const withLanguages = await Promise.all(
           filtered.map(async repo => {
             const [langsRes, frameworks] = await Promise.all([
-              fetch(`https://api.github.com/repos/${username}/${repo.name}/languages`, { headers: HEADERS }),
+              githubFetch(`/repos/${username}/${repo.name}/languages`),
               JS_LANGS.has(repo.language ?? '') ? getFrameworks(username, repo.name) : Promise.resolve([]),
             ])
 

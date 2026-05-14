@@ -70,7 +70,7 @@ function NinaInput() {
         </div>
         <input
           className={`nina-type-input${hasError ? ' nina-error' : ''}`}
-          placeholder="Start typing here..."
+          placeholder="Digite aqui..."
           onChange={handleChange}
           value={inputValue}
         />
