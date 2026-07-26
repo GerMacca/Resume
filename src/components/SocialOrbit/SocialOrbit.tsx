@@ -1,5 +1,5 @@
 import './SocialOrbit.css'
-import Me from '../../assets/me.jpg'
+import Me from '../../assets/me.webp'
 import { RiLinkedinFill } from 'react-icons/ri'
 import { TbBrandGithubFilled } from 'react-icons/tb'
 import { FaWhatsapp } from 'react-icons/fa'
@@ -31,7 +31,7 @@ const items: OrbitItem[] = [
     {
         bg: '255, 255, 255',
         href: 'https://github.com/GerMacca',
-        icon: <TbBrandGithubFilled color='#1e39d4' />,
+        icon: <TbBrandGithubFilled color='#000' />,
         label: 'GitHub',
     },
     {

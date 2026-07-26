@@ -1,10 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import './Lab.css'
-import noneNina from '../../assets/none_Nina.png'
-import leftNina from '../../assets/left_Nina.png'
-import rightNina from '../../assets/right_Nina.png'
+import noneNina from '../../assets/none_Nina.webp'
+import leftNina from '../../assets/left_Nina.webp'
+import rightNina from '../../assets/right_Nina.webp'
+import { useLanguage } from '../../i18n/LanguageContext'
 
-const PANGRAM = 'Três pratos de trigo para três tigres tristes comendo trigo!'
 const CHAR_COLORS = [
   '#46c284', '#ffa94d', '#ffd43b', '#69db7c', '#4dabf7', '#cc5de8',
   '#f783ac', '#a9e34b', '#74c0fc', '#e599f7', '#63e6be', '#3e138f',
@@ -12,6 +12,8 @@ const CHAR_COLORS = [
 ]
 
 function NinaInput() {
+  const { t } = useLanguage()
+  const PANGRAM = t.lab.pangram
   const [nina, setNina] = useState(noneNina)
   const [inputValue, setInputValue] = useState('')
   const [hasError, setHasError] = useState(false)
@@ -70,7 +72,7 @@ function NinaInput() {
         </div>
         <input
           className={`nina-type-input${hasError ? ' nina-error' : ''}`}
-          placeholder="Digite aqui..."
+          placeholder={t.lab.ninaPlaceholder}
           onChange={handleChange}
           value={inputValue}
         />
@@ -151,6 +153,7 @@ function CursorTrail({ onClear }: { onClear: (fn: () => void) => void }) {
 type Shaving = { id: number; x: number; y: number; vx: number; vy: number; color: string }
 
 function ScratchCard() {
+  const { t } = useLanguage()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const wrapRef = useRef<HTMLDivElement>(null)
   const isDrawingRef = useRef(false)
@@ -160,7 +163,7 @@ function ScratchCard() {
   const [done, setDone] = useState(false)
   const [shavings, setShavings] = useState<Shaving[]>([])
 
-  function drawCover() {
+  const drawCover = useCallback(() => {
     const canvas = canvasRef.current
     const wrap = wrapRef.current
     if (!canvas || !wrap) return
@@ -198,8 +201,8 @@ function ScratchCard() {
     ctx.font = 'bold 13px monospace'
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
-    ctx.fillText('✦  RASPE AQUI  ✦', canvas.width / 2, canvas.height / 2)
-  }
+    ctx.fillText(t.lab.scratchLabel, canvas.width / 2, canvas.height / 2)
+  }, [t.lab.scratchLabel])
 
   useEffect(() => {
     drawCover()
@@ -208,7 +211,7 @@ function ScratchCard() {
     })
     if (wrapRef.current) ro.observe(wrapRef.current)
     return () => ro.disconnect()
-  }, [])
+  }, [drawCover])
 
   const scratchAt = useCallback((clientX: number, clientY: number) => {
     if (!isDrawingRef.current || doneRef.current) return
@@ -272,7 +275,7 @@ function ScratchCard() {
 
   return (
     <div className="scratch-container">
-      <button className="lab-clear-btn" onClick={reset}>Reiniciar</button>
+      <button className="lab-clear-btn" onClick={reset}>{t.lab.restart}</button>
       <div
         className="scratch-wrap"
         ref={wrapRef}
@@ -302,7 +305,7 @@ function ScratchCard() {
         ))}
       </div>
       <div className="scratch-footer">
-        <span className="scratch-pct">{pct}% revelado</span>
+        <span className="scratch-pct">{pct}% {t.lab.revealed}</span>
       </div>
     </div>
   )
@@ -316,6 +319,7 @@ const TOUCH_REPEL_RADIUS = 60
 const TOUCH_REPEL_FORCE = 1.4
 
 function SpringBall() {
+  const { t } = useLanguage()
   const boxRef = useRef<HTMLDivElement>(null)
   const ballRef = useRef<HTMLDivElement>(null)
   const hintRef = useRef<HTMLSpanElement>(null)
@@ -478,8 +482,8 @@ function SpringBall() {
       <span className="trail-hint" ref={hintRef} style={{ display: 'none' }} />
       <div className="spring-ball" ref={ballRef} />
       <div className="spring-dead" ref={deadScreenRef} style={{ display: 'none' }}>
-        <span>GAME OVER</span>
-        <button className="spring-reset" onClick={reset}>reiniciar</button>
+        <span>{t.lab.gameOver}</span>
+        <button className="spring-reset" onClick={reset}>{t.lab.reset}</button>
       </div>
       <span className="spring-timer" ref={timerRef}>0.00s</span>
     </div>
@@ -501,7 +505,7 @@ function Bubbles() {
       setBubbles(prev => {
         if (prev.filter(b => !b.popping).length >= 60) return prev
         const id = counterRef.current++
-        const big = Math.random() < 0.
+        const big = Math.random() < 0.3
         const r = big ? 22 + Math.random() * 12 : 18 + Math.random() * 10
         return [...prev, {
           id,
@@ -523,7 +527,6 @@ function Bubbles() {
     function tick() {
       setBubbles(prev =>
         prev
-          .filter(b => !b.popping || true)
           .map(b => ({ ...b, y: b.y - b.speed, wobble: b.wobble + 0.03 }))
           .filter(b => b.y + b.r > -10)
       )
@@ -573,6 +576,15 @@ function Bubbles() {
       onMouseMove={e => checkPop(e.clientX, e.clientY)}
     >
       <svg width="100%" height="100%">
+        <defs>
+          {BUBBLE_COLORS.map((color, i) => (
+            <radialGradient key={color} id={`bubble-grad-${i}`} cx="38%" cy="35%" r="60%" fx="38%" fy="35%">
+              <stop offset="0%" stopColor="white" stopOpacity="0.35" />
+              <stop offset="50%" stopColor={color} stopOpacity="0.2" />
+              <stop offset="100%" stopColor={color} stopOpacity="0.5" />
+            </radialGradient>
+          ))}
+        </defs>
         {bubbles.map(b => {
           const svgEl = boxRef.current
           const w = svgEl?.clientWidth ?? 300
@@ -580,24 +592,16 @@ function Bubbles() {
           const cx = (b.x + Math.sin(b.wobble) * 3) / 100 * w
           const cy = b.y / 100 * h
           return (
-            <g key={b.id} style={{ cursor: 'crosshair' }}>
-              <defs>
-                <radialGradient id={`grad-${b.id}`} cx="38%" cy="35%" r="60%" fx="38%" fy="35%">
-                  <stop offset="0%" stopColor="white" stopOpacity="0.35" />
-                  <stop offset="50%" stopColor={b.color} stopOpacity="0.2" />
-                  <stop offset="100%" stopColor={b.color} stopOpacity="0.5" />
-                </radialGradient>
-              </defs>
-              <circle
-                cx={cx}
-                cy={cy}
-                r={b.popping ? b.r * 1.4 : b.r}
-                fill={b.popping ? 'transparent' : `url(#grad-${b.id})`}
-                stroke={b.color}
-                strokeWidth={b.popping ? 0 : 1.5}
-                style={{ transition: b.popping ? 'r 0.2s, opacity 0.3s, stroke-width 0.2s' : undefined, opacity: b.popping ? 0 : 1 }}
-              />
-            </g>
+            <circle
+              key={b.id}
+              cx={cx}
+              cy={cy}
+              r={b.popping ? b.r * 1.4 : b.r}
+              fill={b.popping ? 'transparent' : `url(#bubble-grad-${BUBBLE_COLORS.indexOf(b.color)})`}
+              stroke={b.color}
+              strokeWidth={b.popping ? 0 : 1.5}
+              style={{ cursor: 'crosshair', transition: b.popping ? 'r 0.2s, opacity 0.3s, stroke-width 0.2s' : undefined, opacity: b.popping ? 0 : 1 }}
+            />
           )
         })}
       </svg>
@@ -606,41 +610,43 @@ function Bubbles() {
 }
 
 export default function Lab() {
+  const { t, lang } = useLanguage()
   const clearTrailRef = useRef<(() => void) | null>(null)
 
   return (
     <section id="lab" className="lab section">
       <div className="section-header">
-        <span className="section-tag">// lab</span>
-        <h2>Componentes interativos</h2>
+        <span className="section-tag">{t.lab.tag}</span>
+        <h2>{t.lab.title}</h2>
       </div>
 
       <div className="lab-grid">
         <div className="lab-card lab-nina">
-          <span className="lab-card-label">Desafio de digitação da Nina</span>
-          <NinaInput />
+          <span className="lab-card-label">{t.lab.nina}</span>
+          {/* key={lang}: reinicia o desafio quando o pangrama muda de idioma */}
+          <NinaInput key={lang} />
         </div>
         <div className="lab-card lab-trail">
           <div className="lab-card-header">
-            <span className="lab-card-label">Painel de Desenho</span>
-            <button className="lab-clear-btn" onClick={() => clearTrailRef.current?.()}>Limpar</button>
+            <span className="lab-card-label">{t.lab.draw}</span>
+            <button className="lab-clear-btn" onClick={() => clearTrailRef.current?.()}>{t.lab.clear}</button>
           </div>
-          <p className="lab-card-hint">Clique para pintar</p>
+          <p className="lab-card-hint">{t.lab.drawHint}</p>
           <CursorTrail onClear={fn => { clearTrailRef.current = fn }} />
         </div>
         <div className="lab-card lab-mood">
-          <span className="lab-card-label">Raspadinha</span>
-          <p className="lab-card-hint">Raspe para revelar</p>
-          <ScratchCard />
+          <span className="lab-card-label">{t.lab.scratch}</span>
+          <p className="lab-card-hint">{t.lab.scratchHint}</p>
+          <ScratchCard key={lang} />
         </div>
         <div className="lab-card lab-ball">
-          <span className="lab-card-label">Jogo da Bolinha</span>
-          <p className="lab-card-hint">Passe o mouse na bolinha para iniciar</p>
+          <span className="lab-card-label">{t.lab.ball}</span>
+          <p className="lab-card-hint">{t.lab.ballHint}</p>
           <SpringBall />
         </div>
         <div className="lab-card lab-bubbles">
-          <span className="lab-card-label">Bolhas</span>
-          <p className="lab-card-hint">Passe o mouse nas bolhas para estoura-las</p>
+          <span className="lab-card-label">{t.lab.bubbles}</span>
+          <p className="lab-card-hint">{t.lab.bubblesHint}</p>
           <Bubbles />
         </div>
       </div>
