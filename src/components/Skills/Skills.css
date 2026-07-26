@@ -123,6 +123,11 @@
   transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
 }
 
+.bento-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Radial glow */
 .bento-card::before {
   content: '';

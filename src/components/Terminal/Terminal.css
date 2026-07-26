@@ -1,0 +1,115 @@
+.terminal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12vh 1rem 0;
+  animation: terminal-fade 0.15s ease;
+}
+
+@keyframes terminal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.terminal-window {
+  width: 100%;
+  max-width: 640px;
+  background: #0d1117;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  font-family: 'JetBrains Mono', monospace;
+  animation: terminal-pop 0.18s ease;
+}
+
+@keyframes terminal-pop {
+  from { transform: translateY(-12px) scale(0.98); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.terminal-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.6rem 0.9rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.terminal-bar .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.terminal-bar .dot-red { background: #ff5f57; }
+.terminal-bar .dot-yellow { background: #febc2e; }
+.terminal-bar .dot-green { background: #28c840; }
+
+.terminal-title {
+  margin-left: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.terminal-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0 0.2rem;
+  transition: color 0.2s;
+}
+
+.terminal-close:hover {
+  color: var(--text-primary);
+}
+
+.terminal-body {
+  padding: 1rem 1.1rem 1.2rem;
+  max-height: 46vh;
+  overflow-y: auto;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  cursor: text;
+}
+
+.terminal-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-primary);
+}
+
+.terminal-out {
+  color: var(--text-secondary);
+}
+
+.terminal-prompt {
+  color: var(--accent);
+  margin-right: 0.5ch;
+  user-select: none;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+}
+
+.terminal-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font: inherit;
+  caret-color: var(--accent);
+}
