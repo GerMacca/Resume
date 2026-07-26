@@ -1,5 +1,5 @@
 .hero {
-  min-height: 95vh;
+  min-height: 88vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr auto;
@@ -75,11 +75,18 @@
   max-width: 420px;
 }
 
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+}
+
 .btn-download {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 0.4rem;
   padding: 0.85rem 2rem;
   background: var(--accent);
   color: #000;
@@ -96,6 +103,20 @@
   color: var(--accent);
   box-shadow: 0 0 0 2px var(--accent), 0 0 28px var(--accent-glow);
   transform: translateY(-2px);
+}
+
+.hero-secondary-cta {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.hero-secondary-cta:hover {
+  color: var(--text-primary);
+  border-color: var(--accent);
 }
 
 /* Big animated bottom text */
@@ -205,7 +226,8 @@
     margin: 0 auto;
   }
 
-  .btn-download {
+  .hero-ctas {
+    justify-content: center;
     margin: 0 auto;
   }
 

@@ -1,0 +1,74 @@
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.about-text p::first-letter {
+  color: var(--text-primary);
+}
+
+/* Janela de "editor de código" */
+.about-code {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.about-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0.7rem 1rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.dot-red { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green { background: #28c840; }
+
+.about-code-file {
+  margin-left: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.about-code-body {
+  padding: 1.4rem 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.9;
+  overflow-x: auto;
+  color: var(--text-primary);
+}
+
+.tok-kw { color: #c678dd; }
+.tok-var { color: #61afef; }
+.tok-prop { color: var(--accent); }
+.tok-str { color: #e5c07b; }
+
+@media (max-width: 860px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

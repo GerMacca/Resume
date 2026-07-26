@@ -3,6 +3,7 @@ import { RiLinkedinFill } from 'react-icons/ri'
 import { TbBrandGithubFilled } from 'react-icons/tb'
 import { FaWhatsapp } from 'react-icons/fa'
 import { MdEmail } from "react-icons/md";
+import { useLanguage } from '../../i18n/LanguageContext'
 
 const contacts = [
   {
@@ -40,19 +41,17 @@ const contacts = [
 ]
 
 export default function Contact() {
+  const { t } = useLanguage()
+
   return (
     <section id="contact" className="contact section">
       <div className="section-header">
-        <span className="section-tag">// contato</span>
-        <h2>Vamos conversar</h2>
+        <span className="section-tag">{t.contact.tag}</span>
+        <h2>{t.contact.title}</h2>
       </div>
 
       <div className="contact-content">
-        <p className="contact-desc">
-          Estou disponível para novas oportunidades, projetos freelance ou
-          apenas para bater um papo sobre tecnologia. Não hesite em entrar em
-          contato!
-        </p>
+        <p className="contact-desc">{t.contact.desc}</p>
 
         <div className="contact-grid">
           {contacts.map(({ icon: Icon, label, value, href, color, bg }) => (
@@ -80,7 +79,7 @@ export default function Contact() {
         <div className="contact-footer">
           <p>© {new Date().getFullYear()} Germano Maccagnan dos Santos</p>
           <a href="/curriculo-germano.pdf" download className="btn-dl-footer">
-            Baixar CV
+            {t.contact.downloadCv}
           </a>
         </div>
       </div>

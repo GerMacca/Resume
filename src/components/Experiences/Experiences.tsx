@@ -2,21 +2,12 @@ import { useState } from 'react'
 import './Experiences.css'
 import experiences from './experiences.data'
 import type { ExperienceTab } from './experiences.data'
+import { useLanguage } from '../../i18n/LanguageContext'
 
-const tabs: { id: ExperienceTab; label: string }[] = [
-  { id: 'work', label: 'Empregos' },
-  { id: 'education', label: 'Graduação' },
-  { id: 'courses', label: 'Cursos' },
-]
-
-const typeLabel: Record<string, string> = {
-  work: 'Emprego',
-  education: 'Graduação',
-  courses: 'Cursos complementares',
-  internship: 'Estágio',
-}
+const tabIds: ExperienceTab[] = ['work', 'education', 'courses']
 
 export default function Experiences() {
+  const { t, lang } = useLanguage()
   const [active, setActive] = useState<ExperienceTab>('work')
 
   const filtered = experiences.filter(e => e.tab === active)
@@ -24,45 +15,45 @@ export default function Experiences() {
   return (
     <section id="experiences" className="experiences section">
       <div className="section-header">
-        <span className="section-tag">// experiências</span>
-        <h2>Trajetória</h2>
+        <span className="section-tag">{t.experiences.tag}</span>
+        <h2>{t.experiences.title}</h2>
       </div>
 
       <div className="exp-tabs">
-        {tabs.map(tab => (
+        {tabIds.map(tab => (
           <button
-            key={tab.id}
-            className={`exp-tab ${active === tab.id ? 'exp-tab--active' : ''}`}
-            onClick={() => setActive(tab.id)}
+            key={tab}
+            className={`exp-tab ${active === tab ? 'exp-tab--active' : ''}`}
+            onClick={() => setActive(tab)}
           >
-            {tab.label}
+            {t.experiences.tabs[tab]}
           </button>
         ))}
       </div>
 
       <div className="timeline">
-        {filtered.map((exp, i) => (
-          <div className="timeline-item" key={i}>
+        {filtered.map(exp => (
+          <div className="timeline-item" key={`${exp.company}-${exp.role.pt}`}>
             <div className="timeline-dot" />
 
             <div className="timeline-card">
               <div className="timeline-card-header">
                 <div className="timeline-card-title">
-                  <h3>{exp.role}</h3>
+                  <h3>{exp.role[lang]}</h3>
                   <span className="timeline-company">{exp.company}</span>
                 </div>
                 <div className="timeline-card-meta">
                   <span className={`timeline-badge timeline-badge--${exp.type}`}>
-                    {typeLabel[exp.type]}
+                    {t.experiences.types[exp.type]}
                   </span>
-                  <span className="timeline-period">{exp.period}</span>
+                  <span className="timeline-period">{exp.period[lang]}</span>
                   {exp.location && (
                     <span className="timeline-location">{exp.location}</span>
                   )}
                 </div>
               </div>
 
-              <p className="timeline-desc">{exp.description}</p>
+              <p className="timeline-desc">{exp.description[lang]}</p>
 
               {exp.tags && exp.tags.length > 0 && (
                 <div className="timeline-tags">
