@@ -1,13 +1,12 @@
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react-swc'
 
-const githubProxy: Plugin = {
+const githubProxy = (token: string | undefined): Plugin => ({
   name: 'github-proxy',
   configureServer(server) {
     server.middlewares.use('/api/github', async (req, res) => {
       const url = new URL(req.url ?? '/', 'http://localhost')
       const path = url.searchParams.get('path') ?? ''
-      const token = process.env.GITHUB_TOKEN
 
       try {
         const response = await fetch(`https://api.github.com${path}`, {
@@ -26,9 +25,14 @@ const githubProxy: Plugin = {
       }
     })
   },
-}
+})
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), githubProxy],
+export default defineConfig(({ mode }) => {
+  // Carrega .env / .env.local para que GITHUB_TOKEN funcione no dev
+  const env = loadEnv(mode, process.cwd(), '')
+
+  return {
+    plugins: [react(), githubProxy(env.GITHUB_TOKEN)],
+  }
 })
