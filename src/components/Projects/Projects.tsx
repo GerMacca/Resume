@@ -1,8 +1,9 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './Projects.css'
 import { TbBrandGithubFilled, TbExternalLink } from 'react-icons/tb'
 import { AiOutlineStar } from 'react-icons/ai'
 import { useGithubRepos } from './useGithubRepos'
+import GithubActivity from './GithubActivity'
 import { useLanguage } from '../../i18n/LanguageContext'
 
 
@@ -33,11 +34,15 @@ function ProjectPreview({ image, name }: { image: string | null; name: string })
 }
 
 const MAX_FILTERS = 8
+const COLLAPSED_COUNT = 2
 
 export default function Projects() {
   const { t } = useLanguage()
   const { repos, loading, error } = useGithubRepos('GerMacca')
   const [filter, setFilter] = useState<string | null>(null)
+  const [expanded, setExpanded] = useState(false)
+
+  useEffect(() => { setExpanded(false) }, [filter])
 
   // Tecnologias mais usadas entre os repos, para os chips de filtro
   const techs = useMemo(() => {
@@ -55,6 +60,9 @@ export default function Projects() {
     ? repos.filter(repo => repo.languages.includes(filter))
     : repos
 
+  const displayed = expanded ? visible : visible.slice(0, COLLAPSED_COUNT)
+  const hiddenCount = visible.length - displayed.length
+
   const tags = (repo: { topics: string[]; languages: string[] }) => {
     const list = [...repo.languages]
     repo.topics.forEach(tp => { if (!list.includes(tp)) list.push(tp) })
@@ -67,6 +75,8 @@ export default function Projects() {
         <span className="section-tag">{t.projects.tag}</span>
         <h2>{t.projects.title}</h2>
       </div>
+
+      <GithubActivity login="GerMacca" />
 
       {loading && (
         <div className="projects-loading">
@@ -103,9 +113,13 @@ export default function Projects() {
           )}
 
           <div className="projects-list">
-            {visible.map(repo => {
+            {displayed.map((repo, i) => {
               return (
-                <div key={repo.id} className="project-card">
+                <div
+                  key={repo.id}
+                  className="project-card"
+                  style={{ animationDelay: `${Math.min(i, 6) * 60}ms` }}
+                >
                   <div className="project-preview">
                     <ProjectPreview image={getProjectImage(repo.name)} name={repo.name} />
                   </div>
@@ -145,6 +159,12 @@ export default function Projects() {
               )
             })}
           </div>
+
+          {visible.length > COLLAPSED_COUNT && (
+            <button className="projects-toggle" onClick={() => setExpanded(e => !e)}>
+              {expanded ? t.projects.showLess : `${t.projects.showMore} (${hiddenCount})`}
+            </button>
+          )}
         </>
       )}
     </section>

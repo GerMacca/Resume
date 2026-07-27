@@ -19,7 +19,7 @@
   left: -150px;
   width: 550px;
   height: 550px;
-  background: radial-gradient(circle, rgba(0, 200, 150, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -69,7 +69,7 @@
 }
 
 .hero-desc {
-  font-size: 0.93rem;
+  font-size: var(--fs-md);
   color: var(--text-secondary);
   line-height: 1.85;
   max-width: 420px;
@@ -91,8 +91,8 @@
   background: var(--accent);
   color: #000;
   font-weight: 700;
-  font-size: 0.88rem;
-  border-radius: 8px;
+  font-size: var(--fs-md);
+  border-radius: var(--radius-sm);
   width: fit-content;
   transition: all 0.3s ease;
   letter-spacing: 0.3px;
@@ -106,7 +106,7 @@
 }
 
 .hero-secondary-cta {
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--text-secondary);
   border-bottom: 1px solid transparent;

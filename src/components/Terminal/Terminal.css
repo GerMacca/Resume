@@ -20,9 +20,9 @@
 .terminal-window {
   width: 100%;
   max-width: 640px;
-  background: #0d1117;
+  background: var(--bg-secondary);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
   font-family: 'JetBrains Mono', monospace;
@@ -55,7 +55,7 @@
 
 .terminal-title {
   margin-left: 0.6rem;
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--text-secondary);
 }
 
@@ -65,7 +65,7 @@
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   padding: 0 0.2rem;
   transition: color 0.2s;
 }
@@ -78,7 +78,7 @@
   padding: 1rem 1.1rem 1.2rem;
   max-height: 46vh;
   overflow-y: auto;
-  font-size: 0.82rem;
+  font-size: var(--fs-sm);
   line-height: 1.7;
   cursor: text;
 }

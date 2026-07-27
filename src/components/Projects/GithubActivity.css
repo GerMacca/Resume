@@ -1,0 +1,116 @@
+.gh-activity {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+}
+
+.gh-activity-skeleton {
+  height: 148px;
+  background: linear-gradient(90deg, var(--bg-card) 25%, var(--border) 50%, var(--bg-card) 75%);
+  background-size: 200% 100%;
+  animation: gh-activity-shine 1.4s ease infinite;
+}
+
+@keyframes gh-activity-shine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.gh-activity-error {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.gh-activity-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.gh-activity-title {
+  margin: 0;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.gh-activity-count {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+}
+
+.gh-activity-scroll {
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.gh-activity-graph {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gh-activity-months {
+  display: flex;
+  gap: 3px;
+}
+
+.gh-month-label {
+  width: 11px;
+  flex-shrink: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+.gh-activity-weeks {
+  display: flex;
+  gap: 3px;
+}
+
+.gh-activity-week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.gh-activity-day {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  background: var(--border);
+}
+
+.gh-activity-day[data-level="1"] { background: rgba(255, 255, 255, 0.25); }
+.gh-activity-day[data-level="2"] { background: rgba(255, 255, 255, 0.45); }
+.gh-activity-day[data-level="3"] { background: rgba(255, 255, 255, 0.68); }
+.gh-activity-day[data-level="4"] { background: rgba(255, 255, 255, 0.92); }
+
+.gh-activity-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0.9rem;
+  font-size: var(--fs-xs);
+  color: var(--text-secondary);
+}
+
+.gh-activity-legend .gh-activity-day {
+  width: 10px;
+  height: 10px;
+}
+
+@media (max-width: 600px) {
+  .gh-activity {
+    padding: 1.25rem;
+  }
+}

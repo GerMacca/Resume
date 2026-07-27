@@ -4,7 +4,7 @@
 
 /* Shared section layout */
 .section {
-  padding: 6rem 5%;
+  padding: 6rem 0;
   max-width: 1200px;
   margin: 0 auto;
   opacity: 0;

@@ -8,7 +8,7 @@
 }
 
 .contact-desc {
-  font-size: 0.98rem;
+  font-size: 1rem;
   color: var(--text-secondary);
   line-height: 1.9;
 }
@@ -23,7 +23,7 @@
 .contact-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   padding: 1.4rem;
   display: flex;
   align-items: center;
@@ -40,7 +40,7 @@
   flex-shrink: 0;
   width: 48px;
   height: 48px;
-  border-radius: 10px;
+  border-radius: var(--radius-sm);
   display: grid;
   place-items: center;
 }
@@ -53,7 +53,7 @@
 }
 
 .contact-label {
-  font-size: 0.72rem;
+  font-size: var(--fs-xs);
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -61,7 +61,7 @@
 }
 
 .contact-value {
-  font-size: 0.88rem;
+  font-size: var(--fs-md);
   color: var(--text-primary);
   font-weight: 500;
   white-space: nowrap;
@@ -75,7 +75,7 @@
   align-items: center;
   padding-top: 2rem;
   border-top: 1px solid var(--border);
-  font-size: 0.83rem;
+  font-size: var(--fs-sm);
   color: var(--text-secondary);
 }
 
@@ -83,8 +83,8 @@
   padding: 0.6rem 1.5rem;
   border: 1px solid var(--accent);
   color: var(--accent);
-  border-radius: 6px;
-  font-size: 0.83rem;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
   font-weight: 600;
   transition: all 0.3s;
 }

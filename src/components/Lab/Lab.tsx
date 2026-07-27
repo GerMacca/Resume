@@ -59,7 +59,7 @@ function NinaInput() {
   return (
     <div className="nina-widget-v2">
       <div className="nina-input-wrap">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="nina-pangram-row">
           <p className="nina-pangram">
             {PANGRAM.split('').map((ch, i) => {
               const typed = i < inputValue.length
@@ -265,6 +265,14 @@ function ScratchCard() {
     }
   }, [scratchAt])
 
+  // Ouve o mouseup na window: se o botão foi solto fora do canvas, o próprio
+  // elemento nunca recebe o evento, então o "raspar" travava ao voltar pra dentro.
+  useEffect(() => {
+    const onWindowMouseUp = () => { isDrawingRef.current = false }
+    window.addEventListener('mouseup', onWindowMouseUp)
+    return () => window.removeEventListener('mouseup', onWindowMouseUp)
+  }, [])
+
   const reset = () => {
     doneRef.current = false
     setDone(false)
@@ -286,8 +294,6 @@ function ScratchCard() {
           className="scratch-canvas"
           style={{ opacity: done ? 0 : 1, pointerEvents: done ? 'none' : 'auto' }}
           onMouseDown={() => { isDrawingRef.current = true }}
-          onMouseUp={() => { isDrawingRef.current = false }}
-          onMouseLeave={() => { isDrawingRef.current = false }}
           onMouseMove={e => scratchAt(e.clientX, e.clientY)}
         />
         {shavings.map(s => (
@@ -622,31 +628,42 @@ export default function Lab() {
 
       <div className="lab-grid">
         <div className="lab-card lab-nina">
-          <span className="lab-card-label">{t.lab.nina}</span>
+          <div className="lab-card-head">
+            <h3 className="lab-card-title">{t.lab.nina}</h3>
+            <p className="lab-card-hint">{t.lab.ninaHint}</p>
+          </div>
           {/* key={lang}: reinicia o desafio quando o pangrama muda de idioma */}
           <NinaInput key={lang} />
         </div>
         <div className="lab-card lab-trail">
-          <div className="lab-card-header">
-            <span className="lab-card-label">{t.lab.draw}</span>
-            <button className="lab-clear-btn" onClick={() => clearTrailRef.current?.()}>{t.lab.clear}</button>
+          <div className="lab-card-head">
+            <div className="lab-card-title-row">
+              <h3 className="lab-card-title">{t.lab.draw}</h3>
+              <button className="lab-clear-btn" onClick={() => clearTrailRef.current?.()}>{t.lab.clear}</button>
+            </div>
+            <p className="lab-card-hint">{t.lab.drawHint}</p>
           </div>
-          <p className="lab-card-hint">{t.lab.drawHint}</p>
           <CursorTrail onClear={fn => { clearTrailRef.current = fn }} />
         </div>
         <div className="lab-card lab-mood">
-          <span className="lab-card-label">{t.lab.scratch}</span>
-          <p className="lab-card-hint">{t.lab.scratchHint}</p>
+          <div className="lab-card-head">
+            <h3 className="lab-card-title">{t.lab.scratch}</h3>
+            <p className="lab-card-hint">{t.lab.scratchHint}</p>
+          </div>
           <ScratchCard key={lang} />
         </div>
         <div className="lab-card lab-ball">
-          <span className="lab-card-label">{t.lab.ball}</span>
-          <p className="lab-card-hint">{t.lab.ballHint}</p>
+          <div className="lab-card-head">
+            <h3 className="lab-card-title">{t.lab.ball}</h3>
+            <p className="lab-card-hint">{t.lab.ballHint}</p>
+          </div>
           <SpringBall />
         </div>
         <div className="lab-card lab-bubbles">
-          <span className="lab-card-label">{t.lab.bubbles}</span>
-          <p className="lab-card-hint">{t.lab.bubblesHint}</p>
+          <div className="lab-card-head">
+            <h3 className="lab-card-title">{t.lab.bubbles}</h3>
+            <p className="lab-card-hint">{t.lab.bubblesHint}</p>
+          </div>
           <Bubbles />
         </div>
       </div>

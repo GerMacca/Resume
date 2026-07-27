@@ -1,6 +1,6 @@
 .about-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
 }
@@ -14,15 +14,20 @@
   line-height: 1.8;
 }
 
-.about-text p::first-letter {
-  color: var(--text-primary);
+.about-highlight {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.about-text:hover .about-highlight {
+  color: var(--accent);
 }
 
 /* Janela de "editor de código" */
 .about-code {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
   font-family: 'JetBrains Mono', monospace;
@@ -43,28 +48,49 @@
   border-radius: 50%;
 }
 
-.dot-red { background: #ff5f57; }
-.dot-yellow { background: #febc2e; }
-.dot-green { background: #28c840; }
+.dot-red {
+  background: #ff5f57;
+}
+
+.dot-yellow {
+  background: #febc2e;
+}
+
+.dot-green {
+  background: #28c840;
+}
 
 .about-code-file {
   margin-left: 0.6rem;
-  font-size: 0.75rem;
+  font-size: var(--fs-xs);
   color: var(--text-secondary);
 }
 
 .about-code-body {
   padding: 1.4rem 1.5rem;
-  font-size: 0.85rem;
+  font-size: var(--fs-sm);
   line-height: 1.9;
   overflow-x: auto;
   color: var(--text-primary);
 }
 
-.tok-kw { color: #c678dd; }
-.tok-var { color: #61afef; }
-.tok-prop { color: var(--accent); }
-.tok-str { color: #e5c07b; }
+/* Paleta Dracula — exceção intencional ao tema monocromático,
+   igual aos ícones de tech no Skills e ao Lab: aqui é sintaxe de código. */
+.tok-kw {
+  color: #ff79c6;
+}
+
+.tok-var {
+  color: #bd93f9;
+}
+
+.tok-prop {
+  color: #50fa7b;
+}
+
+.tok-str {
+  color: #f1fa8c;
+}
 
 @media (max-width: 860px) {
   .about-grid {

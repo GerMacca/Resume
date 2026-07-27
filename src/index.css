@@ -14,14 +14,30 @@ img {
   --bg-primary: #0a0a0a;
   --bg-secondary: #111111;
   --bg-card: #161616;
-  --accent: #00c896;
-  --accent-dim: rgba(0, 200, 150, 0.12);
-  --accent-glow: rgba(0, 200, 150, 0.3);
+  --accent: #ededed;
+  --accent-dim: rgba(237, 237, 237, 0.1);
+  --accent-glow: rgba(237, 237, 237, 0.25);
   --text-primary: #ffffff;
   --text-secondary: #888888;
   --border: #222222;
-  --color-primary: #00c896;
-  --color-secondary: #003d2e;
+  --color-primary: #ededed;
+  --color-secondary: #2e2e2e;
+
+  /* Radius scale — subtle, Vercel-like */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Font scale (non-heading text) */
+  --fs-xs: 0.72rem;
+  --fs-sm: 0.82rem;
+  --fs-md: 0.9rem;
+  --fs-lg: 1.05rem;
+
+  /* Badge tones (Experiences timeline) — differentiated by lightness only */
+  --badge-work: #d4d4d4;
+  --badge-courses: #a3a3a3;
+  --badge-internship: #f5f5f5;
 }
 
 html {
